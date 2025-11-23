@@ -9,8 +9,8 @@ console.log(checkStringLength('проверяемая строка', 18)); // tr
 console.log(checkStringLength('проверяемая строка', 10)); // false
 
 function isPalindrome(text) {
-  text  = text.toLowerCase().split(' ').join('');
-  return text === text.split('').reverse().join('');
+  const formatted  = text.toLowerCase().split(' ').join('');
+  return formatted === formatted.split('').reverse().join('');
 }
 // Строка является палиндромом
 console.log(isPalindrome('топот')); // true
@@ -23,13 +23,11 @@ console.log(isPalindrome('Лёша на полке клопа нашёл ')); //
 
 
 function parsePosivtiveNums(value) {
-  if (typeof value === 'number') {
-    value = value.toString();
-  }
+  const str = typeof value === 'number' ? value.toString() : value;
   let result = '';
-  for (let i = 0; i < value.length; i++) {
-    if (!isNaN(parseInt(value[i], 10))) {
-      result += value[i];
+  for (let i = 0; i < str.length; i++) {
+    if (!isNaN(parseInt(str[i], 10))) {
+      result += str[i];
     }
   }
   if (result.length === 0) {
