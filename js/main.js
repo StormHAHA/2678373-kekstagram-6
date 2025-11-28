@@ -19,11 +19,19 @@ function generatePhotosDescription(amount, generator) {
   function generateCommentsDescription(commentsCount) {
     const commentsDescriptionObjects = [];
     for (let i = 0; i < commentsCount; i++) {
+      const commentCount = getRandomInteger(1, 2);
+      let message = '';
+      for (let j = 0; j < commentCount; j++) {
+        message += Comments[getRandomInteger(0, Comments.length - 1)];
+        if (j === 0 && commentCount === 2) {
+          message += ' ';
+        }
+      }
       const commentDescription = {
         id : commentId(),
         avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-        message: getRandomInteger(0, 1) ? Comments[getRandomInteger(0, 5)] : Comments[getRandomInteger(0, 5)] + Comments[getRandomInteger(0, 5)],
-        name: Names[getRandomInteger(1, 3)]
+        message: message,
+        name: Names[getRandomInteger(0, Names.length - 1)],
       };
       commentsDescriptionObjects.push(commentDescription);
     }
@@ -49,11 +57,7 @@ function generatePhotosDescription(amount, generator) {
 
 // util
 function getRandomInteger (min, max) {
-  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
-  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-
-  return Math.floor(result);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function createRandomIdFromRangeGenerator(min, max) {
