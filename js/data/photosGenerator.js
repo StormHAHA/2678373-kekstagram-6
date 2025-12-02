@@ -9,14 +9,19 @@ function generatePhotosDescription(amount) {
 
   for (let i = 1; i < amount + 1; i++ ) {
     const commentsAmount = getRandomInteger(COMMENTS_COUNT_MIN, COMMENTS_COUNT_MAX);
-    const photoDesctiption = {
-      id : i,
-      url: `photos/${i}.jpg`,
-      description: `Работаю в Контуре: день ${i}`,
-      likes: getRandomInteger(LIKES_MIN, LIKES_MAX),
-      comments: generateCommentsDescription(commentsAmount, commentsIdGenerator),
-    };
-    photosDescriptionObjects.push(photoDesctiption);
+    try {
+      const photoDesctiption = {
+        id : i,
+        url: `photos/${i}.jpg`,
+        description: `Работаю в Контуре: день ${i}`,
+        likes: getRandomInteger(LIKES_MIN, LIKES_MAX),
+        comments: generateCommentsDescription(commentsAmount, commentsIdGenerator),
+      };
+      photosDescriptionObjects.push(photoDesctiption);
+    } catch (error) {
+      console.error('Error generating photo description:', error);
+      break;
+    }
   }
 
   return photosDescriptionObjects;
