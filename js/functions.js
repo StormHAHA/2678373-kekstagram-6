@@ -23,4 +23,17 @@ function parsePosivtiveNums(value) {
   return num > 0 ? num : NaN;
 }
 
+function formatToMins(timeStr) {
+  const [hours, minutes] = timeStr.split(':').map((item) => parseInt(item, 10));
+  return hours * 60 + minutes;
+}
 
+function isDuringWorkTime(start, end, conversationStart, conversationTime) {
+
+  const workStartMins = formatToMins(start);
+  const workEndMins = formatToMins(end);
+  const convStartMins = formatToMins(conversationStart);
+  const convEndMins = convStartMins + conversationTime;
+
+  return convStartMins >= workStartMins && convEndMins <= workEndMins;
+}
