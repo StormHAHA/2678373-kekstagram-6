@@ -2,7 +2,7 @@ import {getRandomInteger} from '../utils/randomNums.js';
 import {generateCommentsDescription} from './commentsGenerator.js';
 import { COMMENTS_COUNT_MIN, COMMENTS_COUNT_MAX, LIKES_MIN, LIKES_MAX, COMMENT_ID_MAX } from '../constants/constants.js';
 import { createIdFromRangeGenerator } from '../utils/randomNums.js';
-function generatePhotosDescription(amount,) {
+function generatePhotosDescription(amount) {
   const commentsIdGenerator = createIdFromRangeGenerator(COMMENT_ID_MAX);
 
   const photosDescriptionObjects = [];
