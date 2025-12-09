@@ -28,8 +28,8 @@ function closeDetailView() {
   bigPictureContainer.classList.add('hidden');
   document.body.classList.remove('modal-open');
 }
-
-document.querySelector('.big-picture__cancel').addEventListener('click', closeDetailView);
+const closeButton = document.querySelector('.big-picture__cancel');
+closeButton.addEventListener('click', closeDetailView);
 bindEscapeKeydown();
 
 
