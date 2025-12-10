@@ -6,7 +6,8 @@ function renderPhotosTemplate(photosData) {
 
   photosData.forEach((photoData) => {
     const pictureElement = pictureTemplate.content.cloneNode(true);
-
+    const wrapper = pictureElement.querySelector('.picture');
+    wrapper.dataset.id = photoData.id;
     const pictureImg = pictureElement.querySelector('.picture__img');
     pictureImg.src = photoData.url;
     pictureImg.alt = photoData.description;
@@ -18,6 +19,7 @@ function renderPhotosTemplate(photosData) {
   });
 
   picturesContainer.appendChild(fragment);
+  return picturesContainer;
 }
 
 
