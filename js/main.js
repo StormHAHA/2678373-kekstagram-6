@@ -4,4 +4,8 @@ import { renderPhotosTemplate } from './photosRender/photosRender.js';
 import { bindPhotoDetailView } from './utils/bindPhotosDetailView.js';
 const photos = generatePhotosDescription(PHOTOS_COUNT);
 const photosElements = renderPhotosTemplate(photos);
-bindPhotoDetailView(photosElements, photos);
+try {
+  bindPhotoDetailView(photosElements, photos);
+} catch (error) {
+  console.error('Error binding photo detail view:', error);
+}

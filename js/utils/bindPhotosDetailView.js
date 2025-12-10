@@ -9,6 +9,13 @@ function bound(container, data) {
     return;
   }
   picturesContainer = container;
+  if (!Array.isArray(data) || data.length === 0) {
+    throw new Error('Data must be a non-empty array');
+  }
+  const isValidData = data.every((item) => item && typeof item.id === 'number');
+  if (!isValidData) {
+    throw new Error('Each item in data must have a numeric id');
+  }
   photosMap = new Map(data.map((photoData) => [photoData.id, photoData]));
   picturesContainer.addEventListener('click', onPhotoClick);
   isBound = true;
