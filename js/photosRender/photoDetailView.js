@@ -1,6 +1,9 @@
 import { renderComments } from './commentsDetailView.js';
 import { clearComments } from '../utils/clearComments.js';
-import { bindEscapeKeydown } from '../utils/keyboardControl.js';
+import { bindEscapeKeydown, unbindEscapeKeydown } from '../utils/keyboardControl.js';
+
+const closeButton = document.querySelector('.big-picture__cancel');
+let isBound = false;
 
 function showDetailView(photoData) {
   clearComments();
@@ -20,17 +23,32 @@ function showDetailView(photoData) {
   document.body.classList.add('modal-open');
 
   renderComments(photoData.comments);
+  bind();
 }
-
 
 function closeDetailView() {
   const bigPictureContainer = document.querySelector('.big-picture');
   bigPictureContainer.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  unbind();
 }
-const closeButton = document.querySelector('.big-picture__cancel');
-closeButton.addEventListener('click', closeDetailView);
-bindEscapeKeydown();
 
+function bind() {
+  if (isBound) {
+    return;
+  }
+  closeButton.addEventListener('click', closeDetailView);
+  bindEscapeKeydown();
+  isBound = true;
+}
+
+function unbind() {
+  if (!isBound) {
+    return;
+  }
+  closeButton.removeEventListener('click', closeDetailView);
+  unbindEscapeKeydown();
+  isBound = false;
+}
 
 export { closeDetailView, showDetailView };

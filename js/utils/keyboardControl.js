@@ -10,4 +10,8 @@ function bindEscapeKeydown() {
   document.addEventListener('keydown', onEscapeKeydown);
 }
 
-export { bindEscapeKeydown };
+function unbindEscapeKeydown() {
+  document.removeEventListener('keydown', onEscapeKeydown);
+}
+
+export { bindEscapeKeydown, unbindEscapeKeydown };
