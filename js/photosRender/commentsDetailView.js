@@ -7,10 +7,10 @@ function onLoadMoreClick(commentsData, startComment, endComment) {
       return;
     }
 
-    startComment = endComment;
-    endComment = calculateCommentsToRender(endComment, totalCommentsAmount);
+    const nextStartComment = endComment;
+    const nextEndComment = calculateCommentsToRender(endComment, totalCommentsAmount);
 
-    renderComments(commentsData, startComment, endComment);
+    renderComments(commentsData, nextStartComment, nextEndComment);
   };
 }
 function updateCommentsCounterElement(counterElement, commentsRendered) {

@@ -5,13 +5,15 @@ function calculateCommentsToRender(currentCommentAmount, commentsDataLength) {
 }
 
 function normalizeCommentsToRenderRange(startComment, endComment, commentsTotalAmount) {
-  if (endComment === null || endComment === undefined) {
-    endComment = commentsTotalAmount > COMMENTS_TO_RENDER ? COMMENTS_TO_RENDER : commentsTotalAmount;
+  let normalizedStartComment = startComment;
+  let normalizedEndComment = endComment;
+  if (!endComment) {
+    normalizedEndComment = commentsTotalAmount > COMMENTS_TO_RENDER ? COMMENTS_TO_RENDER : commentsTotalAmount;
   }
-  if (startComment === null || startComment === undefined) {
-    startComment = 0;
+  if (!startComment) {
+    normalizedStartComment = 0;
   }
-  return {startComment, endComment};
+  return {startComment: normalizedStartComment, endComment: normalizedEndComment};
 }
 
 export {calculateCommentsToRender, normalizeCommentsToRenderRange};
