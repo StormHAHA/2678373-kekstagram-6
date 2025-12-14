@@ -20,7 +20,7 @@ function updateCommentsCounterElement(counterElement, commentsRendered) {
   }
 }
 function updateLoadMoreElement(loadMoreElement, commentsRendered, commentsTotalAmount) {
-  loadMoreElement.classList.toggle('hidden', commentsRendered >= commentsTotalAmount);
+  loadMoreElement.classList.toggle('hidden', commentsRendered === commentsTotalAmount);
 }
 function renderComments(commentsData, startComment, endComment) {
   const commentsContainer = document.querySelector('.social__comments');
