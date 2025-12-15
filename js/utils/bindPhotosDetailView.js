@@ -30,6 +30,7 @@ function unbound() {
 }
 
 function onPhotoClick(evt) {
+  evt.preventDefault();
   const picture = evt.target.closest('.picture');
 
   const id = Number(picture.dataset.id);
