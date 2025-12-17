@@ -22,11 +22,11 @@ function getHashtagsError(tags) {
     }
 
     if (tag.length > HASHTAG_MAX_LENGTH || tag.length < 2) {
-      return 'Хештег должен быть до 20 символов';
+      return `Хештег должен быть до ${HASHTAG_MAX_LENGTH} символов`;
     }
 
     if (lowerTags.filter((t) => t === tag.toLowerCase()).length > 1) {
-      return 'Хэштег повторяется';
+      return 'Хэштеги должны быть уникальными';
     }
   }
 
