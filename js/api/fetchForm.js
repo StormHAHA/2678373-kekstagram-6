@@ -8,9 +8,6 @@ function sendForm(form, onSuccess, onError) {
   fetch(PHOTO_UPLOAD_ENDPOINT, {
     method: 'POST',
     body: formData,
-    headers : {
-      'Content-Type' : 'multipart/form-data',
-    },
   })
     .then((response) => {
       if (response.ok) {
