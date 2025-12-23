@@ -77,6 +77,8 @@ const EFFECTS = {
   },
 };
 
+const PHOTOS_ENDPOINT = 'https://29.javascript.htmlacademy.pro/kekstagram/data';
+const PHOTO_UPLOAD_ENDPOINT = 'https://29.javascript.htmlacademy.pro/kekstagram';
 export {
   NAMES,
   COMMENTS,
@@ -97,5 +99,7 @@ export {
   FORM_IMAGE_SCALE_MIN,
   FORM_IMAGE_SCALE_MAX,
   FORM_IMAGE_SCALE_DEFAULT,
-  EFFECTS
+  EFFECTS,
+  PHOTOS_ENDPOINT,
+  PHOTO_UPLOAD_ENDPOINT
 };

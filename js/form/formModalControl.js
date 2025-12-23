@@ -13,31 +13,30 @@ function trackFormUpload() {
   closeFormModalButton.addEventListener('click', closeFormModal);
 }
 
-function closeFormModal() {
+function closeFormModal(success) {
   const uploadInput = document.querySelector('.img-upload__input');
-  const originalEffect = document.querySelector('#effect-none');
   const hashtagsInput = document.querySelector('.text__hashtags');
   const descriptionInput = document.querySelector('.text__description');
   const imagePreview = document.querySelector('.img-upload__preview img');
   const uploadOverlay = document.querySelector('.img-upload__overlay');
   const page = document.body;
 
+  uploadOverlay.classList.add('hidden');
+  page.classList.remove('modal-open');
+  document.removeEventListener('keydown', onFormEscapeKeydown);
+  uploadInput.value = '';
   if (imageObjectUrl) {
     URL.revokeObjectURL(imageObjectUrl);
     imageObjectUrl = null;
   }
-  uploadOverlay.classList.add('hidden');
-  page.classList.remove('modal-open');
-  uploadInput.value = '';
-  originalEffect.checked = true;
-  hashtagsInput.value = '';
-  descriptionInput.value = '';
-  document.removeEventListener('keydown', onFormEscapeKeydown);
-  // Ставим заглушку по умолчанию
   imagePreview.src = 'img/upload-default-image.jpg';
 
-  resetFilters();
-  resetValidator();
+  if (success) {
+    hashtagsInput.value = '';
+    descriptionInput.value = '';
+    resetValidator();
+    resetFilters();
+  }
 }
 
 function openFormModal() {

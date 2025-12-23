@@ -1,4 +1,4 @@
-
+import { bindPhotoDetailView } from '../utils/bindPhotosDetailView.js';
 function renderPhotosTemplate(photosData) {
   const fragment = new DocumentFragment();
   const picturesContainer = document.querySelector('.pictures');
@@ -19,6 +19,11 @@ function renderPhotosTemplate(photosData) {
   });
 
   picturesContainer.appendChild(fragment);
+  try {
+    bindPhotoDetailView(picturesContainer, photosData);
+  } catch (error) {
+    console.error('Error binding photo detail view:', error);
+  }
   return picturesContainer;
 }
 

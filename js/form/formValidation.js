@@ -1,4 +1,8 @@
 import { HASHTAGS_MAX_COUNT, HASHTAG_MAX_LENGTH, DESCRIPTION_MAX_LENGTH, HASHTAG_PATTERN } from '../constants/constants.js';
+import { sendForm } from '../api/fetchForm.js';
+import { showErrorMessage } from '../toasts/fetchFormError.js';
+import { showSuccessMessage } from '../toasts/fetchFormSuccess.js';
+import { closeFormModal } from './formModalControl.js';
 function getHashtagsError(tags) {
   if (!tags) {
     return '';
@@ -84,6 +88,18 @@ function onFormInput(evt) {
 function onFormSubmit(evt) {
   if (!pristine.validate()) {
     evt.preventDefault();
+  } else {
+    evt.preventDefault();
+    sendForm(evt.target,
+      () => {
+        showSuccessMessage();
+        closeFormModal(true);
+      },
+      () => {
+        showErrorMessage();
+        closeFormModal(false);
+      }
+    );
   }
 }
 export { validateForm, resetValidator };
