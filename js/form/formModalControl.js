@@ -1,6 +1,6 @@
 import { onFormEscapeKeydown } from '../utils/keyboardControl.js';
 import { trackFormImageScaleEdit } from './formImageScaleEdit.js';
-import { validateForm } from './formValidation.js';
+import { validateForm, resetValidator } from './formValidation.js';
 import { initSlider, resetFilters } from './formImageFilterEdit.js';
 
 let imageObjectUrl = null;
@@ -37,6 +37,7 @@ function closeFormModal() {
   imagePreview.src = 'img/upload-default-image.jpg';
 
   resetFilters();
+  resetValidator();
 }
 
 function openFormModal() {

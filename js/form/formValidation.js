@@ -48,6 +48,9 @@ function validateDescription(description) {
 let pristine;
 let isInitialized = false;
 
+function resetValidator() {
+  pristine.reset();
+}
 function validateForm() {
   if (isInitialized) {
     return;
@@ -83,4 +86,4 @@ function onFormSubmit(evt) {
     evt.preventDefault();
   }
 }
-export { validateForm };
+export { validateForm, resetValidator };
