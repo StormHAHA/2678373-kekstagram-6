@@ -1,17 +1,17 @@
-import { PHOTOS_ENDPOINT } from '../constants/constants.js';
+import { PHOTOS_ENDPOINT, BASE_URL } from '../constants/constants.js';
 
 function fetchPhotos(onSuccess, onError) {
   fetch(
-    PHOTOS_ENDPOINT,
+    `${BASE_URL}${PHOTOS_ENDPOINT}`,
     {
       method: 'GET'
     },
   )
-    .then((responce) => {
-      if (responce.ok) {
-        return responce.json();
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
       }
-      throw new Error(`${responce.status} : ${responce.statusText}`);
+      throw new Error(`${response.status} : ${response.statusText}`);
     })
     .then((data) => {
       onSuccess(data);

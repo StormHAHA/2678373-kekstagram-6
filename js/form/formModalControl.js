@@ -13,7 +13,7 @@ function trackFormUpload() {
   closeFormModalButton.addEventListener('click', closeFormModal);
 }
 
-function closeFormModal(success) {
+function closeFormModal() {
   const uploadInput = document.querySelector('.img-upload__input');
   const hashtagsInput = document.querySelector('.text__hashtags');
   const descriptionInput = document.querySelector('.text__description');
@@ -31,12 +31,10 @@ function closeFormModal(success) {
   }
   imagePreview.src = 'img/upload-default-image.jpg';
 
-  if (success) {
-    hashtagsInput.value = '';
-    descriptionInput.value = '';
-    resetValidator();
-    resetFilters();
-  }
+  hashtagsInput.value = '';
+  descriptionInput.value = '';
+  resetValidator();
+  resetFilters();
 }
 
 function openFormModal() {

@@ -1,16 +1,20 @@
+import { onFormEscapeKeydown } from '../utils/keyboardControl.js';
 function showErrorMessage() {
   const template = document.querySelector('#error');
+  const page = document;
+  page.removeEventListener('keydown', onFormEscapeKeydown);
   const errorElement = template.content.querySelector('.error').cloneNode(true);
-
-  document.body.appendChild(errorElement);
+  errorElement.style.zIndex = 1000;
+  page.body.appendChild(errorElement);
 
   const inner = errorElement.querySelector('.error__inner');
   const button = errorElement.querySelector('.error__button');
 
   function closeError() {
     errorElement.remove();
-    document.removeEventListener('keydown', onEscKeydown);
-    document.removeEventListener('click', onOutsideClick);
+    page.removeEventListener('keydown', onEscKeydown);
+    page.removeEventListener('click', onOutsideClick);
+    page.addEventListener('keydown', onFormEscapeKeydown);
   }
 
   function onEscKeydown(evt) {
@@ -27,8 +31,8 @@ function showErrorMessage() {
   }
 
   button.addEventListener('click', closeError);
-  document.addEventListener('keydown', onEscKeydown);
-  document.addEventListener('click', onOutsideClick);
+  page.addEventListener('keydown', onEscKeydown);
+  page.addEventListener('click', onOutsideClick);
 }
 
 export { showErrorMessage };

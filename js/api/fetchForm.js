@@ -1,11 +1,11 @@
-import { PHOTO_UPLOAD_ENDPOINT } from '../constants/constants.js';
+import { BASE_URL } from '../constants/constants.js';
 function sendForm(form, onSuccess, onError) {
   const submitButton = form.querySelector('.img-upload__submit');
   submitButton.disabled = true;
 
   const formData = new FormData(form);
 
-  fetch(PHOTO_UPLOAD_ENDPOINT, {
+  fetch(BASE_URL, {
     method: 'POST',
     body: formData,
   })
