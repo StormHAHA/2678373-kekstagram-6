@@ -6,8 +6,6 @@ import { bindFilterChange } from './photosFilter/applyFilter.js';
 fetchPhotos((data) => {
   renderPhotosTemplate(data);
   bindFilterChange(data);
-  console.log(data);
-
 }, showToast);
 
 trackFormUpload();
