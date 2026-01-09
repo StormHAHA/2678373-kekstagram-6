@@ -1,10 +1,11 @@
-import { shufflePhotos } from './shiffleFilter.js';
+import { shufflePhotos } from './shuffleFilter.js';
 import { sortByComments } from './discussedFilter.js';
 import { renderPhotosTemplate } from '../photosRender/photosRender.js';
 import { debounce } from '../utils/debounce.js';
+import { DEBOUNCE_DELAY } from '../constants/constants.js';
 
 const filterContainer = document.querySelector('.img-filters');
-const delayedRender = debounce(renderPhotosTemplate, 500);
+const delayedRender = debounce(renderPhotosTemplate, DEBOUNCE_DELAY);
 
 
 function applyFilter(photosData, option) {
