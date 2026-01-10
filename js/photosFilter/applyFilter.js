@@ -5,7 +5,10 @@ import { debounce } from '../utils/debounce.js';
 import { DEBOUNCE_DELAY } from '../constants/constants.js';
 
 const filterContainer = document.querySelector('.img-filters');
-const delayedRender = debounce(renderPhotosTemplate, DEBOUNCE_DELAY);
+const delayedRender = debounce((photos) =>{
+  resetPhotos();
+  renderPhotosTemplate(photos);
+}, DEBOUNCE_DELAY);
 
 
 function applyFilter(photosData, option) {
@@ -37,8 +40,6 @@ function renderFilteredPhotos(event, photosData) {
   if (event.target.classList.contains('img-filters__button')) {
     const selectedFilter = event.target.id;
     const filteredPhotos = applyFilter(photosData, selectedFilter);
-
-    resetPhotos();
 
     delayedRender(filteredPhotos);
 

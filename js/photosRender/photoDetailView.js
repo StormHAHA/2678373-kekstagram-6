@@ -7,11 +7,14 @@ let isBound = false;
 
 function showDetailView(photoData) {
   clearComments();
+  const oldLoader = document.querySelector('.comments-loader');
+  const newLoader = oldLoader.cloneNode(true);
+  oldLoader.parentNode.replaceChild(newLoader, oldLoader);
 
   const bigPictureContainer = document.querySelector('.big-picture');
   const bigPictureImg = bigPictureContainer.querySelector('.big-picture__img img');
   const likesCount = bigPictureContainer.querySelector('.likes-count');
-  const commentsCount = bigPictureContainer.querySelector('.comments-count');
+  const commentsCount = bigPictureContainer.querySelector('.social__comment-total-count');
   const photoDescription = bigPictureContainer.querySelector('.social__caption');
   bigPictureImg.src = photoData.url;
   bigPictureImg.alt = photoData.description;

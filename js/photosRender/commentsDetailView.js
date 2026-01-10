@@ -13,10 +13,14 @@ function onLoadMoreClick(commentsData, startComment, endComment) {
     renderComments(commentsData, nextStartComment, nextEndComment);
   };
 }
-function updateCommentsCounterElement(counterElement, commentsRendered) {
+function updateCommentsCounterElement(commentsRendered, counterElement) {
+  const shownCommentsAmount = document.querySelector('.social__comment-shown-count');
+  const totalCommentsAmount = document.querySelector('.social__comment-total-count');
   if (commentsRendered !== 0) {
-    counterElement.classList.remove('hidden');
-    counterElement.firstChild.textContent = `${commentsRendered  } из `;
+    const commentsCounterElement = document.querySelector('.social__comment-count');
+    commentsCounterElement.classList.remove('hidden');
+    shownCommentsAmount.textContent = commentsRendered;
+    totalCommentsAmount.textContent = counterElement;
   }
 }
 function updateLoadMoreElement(loadMoreElement, commentsRendered, commentsTotalAmount) {
@@ -24,14 +28,13 @@ function updateLoadMoreElement(loadMoreElement, commentsRendered, commentsTotalA
 }
 function renderComments(commentsData, startComment, endComment) {
   const commentsContainer = document.querySelector('.social__comments');
-  const renderedCommentsCount = document.querySelector('.social__comment-count');
   const commentsLoader = document.querySelector('.comments-loader');
   const totalCommentsAmount = commentsData.length;
   const normalizedRange = normalizeCommentsToRenderRange(startComment, endComment, totalCommentsAmount);
   startComment = normalizedRange.startComment;
   endComment = normalizedRange.endComment;
   updateLoadMoreElement(commentsLoader, endComment, totalCommentsAmount);
-  updateCommentsCounterElement(renderedCommentsCount, endComment, totalCommentsAmount);
+  updateCommentsCounterElement(endComment, totalCommentsAmount);
   for (let i = startComment; i < endComment; i++) {
     const commentElement = document.createElement('li');
     commentElement.classList.add('social__comment');

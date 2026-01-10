@@ -1,5 +1,6 @@
 function showToast( ) {
   const toast = document.createElement('div');
+  toast.classList.add('data-error');
   toast.textContent = 'Не удалось получить данные';
   Object.assign(toast.style, {
     position: 'fixed',

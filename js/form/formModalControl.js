@@ -20,7 +20,7 @@ function closeFormModal() {
   const imagePreview = document.querySelector('.img-upload__preview img');
   const uploadOverlay = document.querySelector('.img-upload__overlay');
   const page = document.body;
-
+  const effectsPreview = document.querySelectorAll('.effects__preview');
   uploadOverlay.classList.add('hidden');
   page.classList.remove('modal-open');
   document.removeEventListener('keydown', onFormEscapeKeydown);
@@ -28,6 +28,9 @@ function closeFormModal() {
   if (imageObjectUrl) {
     URL.revokeObjectURL(imageObjectUrl);
     imageObjectUrl = null;
+    effectsPreview.forEach((preview) => {
+      preview.style.backgroundImage = 'url(../img/upload-default-image.jpg)';
+    });
   }
   imagePreview.src = 'img/upload-default-image.jpg';
 
@@ -43,10 +46,13 @@ function openFormModal() {
   const uploadInput = document.querySelector('.img-upload__input');
   const page = document.querySelector('body');
   const file = uploadInput.files[0];
-
+  const effectsPreview = document.querySelectorAll('.effects__preview');
   if (file && file.type.startsWith('image/')) {
     imageObjectUrl = URL.createObjectURL(file);
     imagePreview.src = imageObjectUrl;
+    effectsPreview.forEach((preview) => {
+      preview.style.backgroundImage = `url(${imageObjectUrl})`;
+    });
   }
 
   uploadOverlay.classList.remove('hidden');

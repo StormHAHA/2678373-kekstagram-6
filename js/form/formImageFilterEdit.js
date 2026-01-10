@@ -10,7 +10,6 @@ function handleSliderUpdate () {
   const imagePreview = document.querySelector('.img-upload__preview img');
   const value = sliderElement.noUiSlider.get();
   sliderValue.value = value;
-
   if (!currentEffect.filter) {
     imagePreview.style.filter = '';
   } else {
@@ -51,10 +50,14 @@ function initSlider() {
   const effectsList = document.querySelector('.effects__list');
 
   noUiSlider.create(sliderElement, {
-    range: { min: 0, max: 100 },
-    start: 100,
-    step: 1,
+    range: { min: 0, max: 1 },
+    start: 1,
+    step: 0.1,
     connect: 'lower',
+    format: {
+      to: (value) => Number(value.toFixed(1)),
+      from: (value) => parseFloat(value),
+    },
   });
 
   sliderContainer.classList.add('hidden');
