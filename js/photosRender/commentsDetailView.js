@@ -1,18 +1,21 @@
 import { calculateCommentsToRender, normalizeCommentsToRenderRange } from '../utils/commentsToRenderNext.js';
 
-function onLoadMoreClick(commentsData, startComment, endComment) {
-  const totalCommentsAmount = commentsData.length;
-  return () => {
-    if (endComment === totalCommentsAmount) {
-      return;
-    }
+let currentComments = [];
+let currentEnd = 0;
 
-    const nextStartComment = endComment;
-    const nextEndComment = calculateCommentsToRender(endComment, totalCommentsAmount);
+const commentsContainer = document.querySelector('.social__comments');
+const commentsLoader = document.querySelector('.comments-loader');
+const commentCount = document.querySelector('.social__comment-count');
 
-    renderComments(commentsData, nextStartComment, nextEndComment);
-  };
+function clearComments() {
+  commentCount.classList.add('hidden');
+  commentsLoader.classList.add('hidden');
+
+  commentsContainer.innerHTML = '';
+  currentEnd = 0;
+  currentComments = [];
 }
+
 function updateCommentsCounterElement(commentsRendered, counterElement) {
   const shownCommentsAmount = document.querySelector('.social__comment-shown-count');
   const totalCommentsAmount = document.querySelector('.social__comment-total-count');
@@ -23,40 +26,68 @@ function updateCommentsCounterElement(commentsRendered, counterElement) {
     totalCommentsAmount.textContent = counterElement;
   }
 }
-function updateLoadMoreElement(loadMoreElement, commentsRendered, commentsTotalAmount) {
+function updateLoadMoreElement(commentsRendered, commentsTotalAmount) {
+  const loadMoreElement = document.querySelector('.comments-loader');
   loadMoreElement.classList.toggle('hidden', commentsRendered === commentsTotalAmount);
 }
-function renderComments(commentsData, startComment, endComment) {
-  const commentsContainer = document.querySelector('.social__comments');
-  const commentsLoader = document.querySelector('.comments-loader');
-  const totalCommentsAmount = commentsData.length;
-  const normalizedRange = normalizeCommentsToRenderRange(startComment, endComment, totalCommentsAmount);
-  startComment = normalizedRange.startComment;
-  endComment = normalizedRange.endComment;
-  updateLoadMoreElement(commentsLoader, endComment, totalCommentsAmount);
-  updateCommentsCounterElement(endComment, totalCommentsAmount);
-  for (let i = startComment; i < endComment; i++) {
+
+
+function renderCommentsRange(startComment, endComment) {
+  const total = currentComments.length;
+
+  const normalizedRange = normalizeCommentsToRenderRange(
+    startComment,
+    endComment,
+    total
+  );
+
+  const start = normalizedRange.startComment;
+  const end = normalizedRange.endComment;
+
+  updateLoadMoreElement(end, total);
+  updateCommentsCounterElement(end, total);
+
+  for (let i = start; i < end; i++) {
+    const comment = currentComments[i];
+
     const commentElement = document.createElement('li');
     commentElement.classList.add('social__comment');
 
     const avatarImg = document.createElement('img');
     avatarImg.classList.add('social__picture');
+    avatarImg.src = comment.avatar;
+    avatarImg.alt = comment.name;
+    avatarImg.width = 35;
+    avatarImg.height = 35;
 
     const commentText = document.createElement('p');
     commentText.classList.add('social__text');
+    commentText.textContent = comment.message;
 
-    avatarImg.src = commentsData[i].avatar;
-    avatarImg.alt = commentsData[i].name;
-    avatarImg.width = 35;
-    avatarImg.height = 35;
-    commentText.textContent = commentsData[i].message;
-
-    commentElement.appendChild(avatarImg);
-    commentElement.appendChild(commentText);
+    commentElement.append(avatarImg, commentText);
     commentsContainer.appendChild(commentElement);
   }
-  commentsLoader.addEventListener('click', onLoadMoreClick(commentsData, startComment, endComment), {once: true});
+}
+function loadMoreComments() {
+  const total = currentComments.length;
 
+  if (currentEnd >= total) {
+    return;
+  }
+
+  const nextEnd = calculateCommentsToRender(currentEnd, total);
+  renderCommentsRange(currentEnd, nextEnd);
+  currentEnd = nextEnd;
+}
+function renderComments(commentsData) {
+  clearComments();
+
+  currentComments = commentsData;
+
+  const firstEnd = calculateCommentsToRender(0, commentsData.length);
+  renderCommentsRange(0, firstEnd);
+  currentEnd = firstEnd;
 }
 
-export { renderComments };
+commentsLoader.addEventListener('click', loadMoreComments);
+export { renderComments, clearComments };
